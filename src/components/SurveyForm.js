@@ -136,8 +136,8 @@ export default function SurveyForm({ awardee, rubrics }) {
             )}
           </div>
           <div style={{ textAlign: 'left' }}>
-            <h1 style={{ fontSize: '1.6rem', color: '#fff', marginBottom: '0.2rem', lineHeight: 1.2 }}>Peer Review</h1>
-            <p style={{ color: 'var(--accent-blue)', fontSize: '0.85rem', fontWeight: 600, margin: 0 }}>Evaluasi 360° Awardee</p>
+            <h1 style={{ fontSize: '1.6rem', color: '#fff', marginBottom: '0.2rem', lineHeight: 1.2 }}>Evaluasi Publik</h1>
+            <p style={{ color: 'var(--accent-blue)', fontSize: '0.85rem', fontWeight: 600, margin: 0 }}>Awardee BAKTI NUSA 15</p>
           </div>
         </div>
       </div>
@@ -146,11 +146,11 @@ export default function SurveyForm({ awardee, rubrics }) {
         <div className="catalog-card" style={{ marginBottom: '1.5rem', padding: '1rem', background: '#f3f4f6', border: '1px solid #e5e7eb' }}>
           <div className="catalog-card-header" style={{ marginBottom: 0 }}>
             {awardee.Foto ? (
-              <img 
-                src={awardee.Foto.match(/[/\\]images[/\\](.*)/) ? '/images/' + awardee.Foto.match(/[/\\]images[/\\](.*)/)[1].replace(/\\/g, '/') : awardee.Foto} 
-                alt={`Foto ${awardee['Nama Awardee']}`} 
+              <img
+                src={awardee.Foto.match(/[/\\]images[/\\](.*)/) ? '/images/' + awardee.Foto.match(/[/\\]images[/\\](.*)/)[1].replace(/\\/g, '/') : awardee.Foto}
+                alt={`Foto ${awardee['Nama Awardee']}`}
                 className="profile-photo"
-                onError={(e) => { e.target.onerror = null; e.target.src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(awardee['Nama Awardee']) + '&background=dc2626&color=fff&size=200' }} 
+                onError={(e) => { e.target.onerror = null; e.target.src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(awardee['Nama Awardee']) + '&background=dc2626&color=fff&size=200' }}
               />
             ) : (
               <img src={`https://ui-avatars.com/api/?name=${encodeURIComponent(awardee['Nama Awardee'])}&background=dc2626&color=fff&size=200`} alt={`Avatar ${awardee['Nama Awardee']}`} className="profile-photo" />
@@ -189,16 +189,16 @@ export default function SurveyForm({ awardee, rubrics }) {
                 {!isAnon && (
                   <div id="field-nama" className="form-group animate-fade-in" style={{ padding: '0.5rem', borderRadius: '12px' }}>
                     <label className="form-label">Nama Saudara *</label>
-                    <input type="text" className="form-input" value={formData.namaEvaluator} onChange={e => setFormData({...formData, namaEvaluator: e.target.value})} />
+                    <input type="text" className="form-input" value={formData.namaEvaluator} onChange={e => setFormData({ ...formData, namaEvaluator: e.target.value })} />
                   </div>
                 )}
                 <div id="field-kota" className="form-group" style={{ padding: '0.5rem', borderRadius: '12px' }}>
                   <label className="form-label">Kota/Kabupaten Domisili *</label>
-                  <input type="text" className="form-input" value={formData.kotaEvaluator} onChange={e => setFormData({...formData, kotaEvaluator: e.target.value})} />
+                  <input type="text" className="form-input" value={formData.kotaEvaluator} onChange={e => setFormData({ ...formData, kotaEvaluator: e.target.value })} />
                 </div>
                 <div id="field-hubungan" className="form-group" style={{ padding: '0.5rem', borderRadius: '12px' }}>
                   <label className="form-label">Dalam hal apa anda berhubungan dengan yang bersangkutan? *</label>
-                  <select className="form-select" value={formData.hubungan} onChange={e => setFormData({...formData, hubungan: e.target.value})}>
+                  <select className="form-select" value={formData.hubungan} onChange={e => setFormData({ ...formData, hubungan: e.target.value })}>
                     <option value="">Pilih Hubungan...</option>
                     <option value="Atasan/Leader di organisasi">Atasan/Leader di organisasi</option>
                     <option value="Anggota tim">Anggota tim</option>
@@ -212,7 +212,7 @@ export default function SurveyForm({ awardee, rubrics }) {
                 </div>
                 <div id="field-lama" className="form-group" style={{ padding: '0.5rem', borderRadius: '12px' }}>
                   <label className="form-label">Berapa lama saudara mengenal yang bersangkutan? *</label>
-                  <select className="form-select" value={formData.lamaKenal} onChange={e => setFormData({...formData, lamaKenal: e.target.value})}>
+                  <select className="form-select" value={formData.lamaKenal} onChange={e => setFormData({ ...formData, lamaKenal: e.target.value })}>
                     <option value="">Pilih Durasi...</option>
                     <option value="< 5 bulan">&lt; 5 bulan</option>
                     <option value="5 bulan - 1 tahun">5 bulan - 1 tahun</option>
@@ -258,12 +258,12 @@ export default function SurveyForm({ awardee, rubrics }) {
                 <div className="form-group">
                   <label className="form-label">Saran Pengembangan Diri</label>
                   <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>Mohon berikan masukan untuk pengembangan kepemimpinan yang bersangkutan.</p>
-                  <textarea className="form-textarea" rows="4" value={formData.saranDiri} onChange={e => setFormData({...formData, saranDiri: e.target.value})} placeholder="Tuliskan saran di sini..."></textarea>
+                  <textarea className="form-textarea" rows="4" value={formData.saranDiri} onChange={e => setFormData({ ...formData, saranDiri: e.target.value })} placeholder="Tuliskan saran di sini..."></textarea>
                 </div>
                 <div className="form-group">
                   <label className="form-label">Saran untuk Program</label>
                   <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>Berikan masukan untuk pengembangan program BAKTI NUSA di masa mendatang.</p>
-                  <textarea className="form-textarea" rows="4" value={formData.saranProgram} onChange={e => setFormData({...formData, saranProgram: e.target.value})} placeholder="Tuliskan saran di sini..."></textarea>
+                  <textarea className="form-textarea" rows="4" value={formData.saranProgram} onChange={e => setFormData({ ...formData, saranProgram: e.target.value })} placeholder="Tuliskan saran di sini..."></textarea>
                 </div>
               </div>
             )}
