@@ -5,9 +5,9 @@ import Link from 'next/link';
 export default function CatalogClient({ awardees }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [modalMsg, setModalMsg] = useState(null);
-  
-  const filtered = awardees.filter(a => 
-    a['Nama Awardee']?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+
+  const filtered = awardees.filter(a =>
+    a['Nama Awardee']?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     a.Wilayah?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -48,24 +48,24 @@ export default function CatalogClient({ awardees }) {
             <img src="/logo.png" alt="Logo BAKTI NUSA" style={{ height: '25px' }} />
           </div>
           <div style={{ textAlign: 'left' }}>
-            <h1 style={{ fontSize: '1.8rem', color: '#fff', marginBottom: '0.2rem', lineHeight: 1.2 }}>Our Community</h1>
+            <h1 style={{ fontSize: '1.8rem', color: '#fff', marginBottom: '0.2rem', lineHeight: 1.2 }}>Profile Awardees BAKTI NUSA 15</h1>
             <p style={{ color: 'var(--accent-blue)', fontSize: '0.9rem', fontWeight: 600, margin: 0 }}>Explore the incredible awardees</p>
           </div>
         </div>
-        
-        <input 
-          type="text" 
-          placeholder="Cari nama atau wilayah..." 
-          className="form-input" 
-          style={{ 
-            width: '100%', 
-            maxWidth: '500px', 
-            borderRadius: '16px', 
-            padding: '0.6rem 1rem', 
+
+        <input
+          type="text"
+          placeholder="Cari nama atau wilayah..."
+          className="form-input"
+          style={{
+            width: '100%',
+            maxWidth: '500px',
+            borderRadius: '16px',
+            padding: '0.6rem 1rem',
             fontSize: '0.9rem',
-            border: 'none', 
-            background: '#fff', 
-            display: 'block' 
+            border: 'none',
+            background: '#fff',
+            display: 'block'
           }}
           value={searchTerm}
           onChange={e => setSearchTerm(e.target.value)}
@@ -77,11 +77,11 @@ export default function CatalogClient({ awardees }) {
           <div key={i} className="animate-fade-in catalog-card" style={{ marginBottom: 0 }}>
             <div className="catalog-card-header">
               {a.Foto ? (
-                <img 
-                  src={getImageUrl(a.Foto)} 
-                  alt={a['Nama Awardee']} 
+                <img
+                  src={getImageUrl(a.Foto)}
+                  alt={a['Nama Awardee']}
                   className="profile-photo"
-                  onError={(e) => { e.target.onerror = null; e.target.src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(a['Nama Awardee']) + '&background=dc2626&color=fff' }} 
+                  onError={(e) => { e.target.onerror = null; e.target.src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(a['Nama Awardee']) + '&background=dc2626&color=fff' }}
                 />
               ) : (
                 <img src={`https://ui-avatars.com/api/?name=${encodeURIComponent(a['Nama Awardee'])}&background=dc2626&color=fff`} alt={a['Nama Awardee']} className="profile-photo" />
@@ -94,7 +94,7 @@ export default function CatalogClient({ awardees }) {
                 </div>
               </div>
             </div>
-            
+
             <div className="catalog-card-actions" style={{ flexDirection: 'row', width: '100%', flexWrap: 'nowrap' }}>
               <Link href={`/survey/${a.Referal}`} className="btn-submit btn-green" style={{ flex: 1.5, padding: '0.4rem 0.5rem', fontSize: '0.75rem', whiteSpace: 'nowrap' }}>
                 📝 Survey
