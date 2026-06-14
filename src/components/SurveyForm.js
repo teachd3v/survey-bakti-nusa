@@ -15,7 +15,6 @@ export default function SurveyForm({ awardee, rubrics }) {
   });
   const [status, setStatus] = useState('idle');
   const [errorMsg, setErrorMsg] = useState('');
-  const [isAnon, setIsAnon] = useState(false);
   const [modalMsg, setModalMsg] = useState(null);
   const [showConfirm, setShowConfirm] = useState(false);
 
@@ -30,7 +29,7 @@ export default function SurveyForm({ awardee, rubrics }) {
 
   const nextStep = () => {
     if (step === 1) {
-      if (!isAnon && !formData.namaEvaluator) {
+      if (!formData.namaEvaluator) {
         document.getElementById('field-nama')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
       }
@@ -99,7 +98,7 @@ export default function SurveyForm({ awardee, rubrics }) {
           namaAwardee: awardee['Nama Awardee'],
           wilayah: awardee.Wilayah,
           ...formData,
-          namaEvaluator: isAnon ? 'Anonim' : formData.namaEvaluator
+          namaEvaluator: formData.namaEvaluator
         })
       });
       const data = await res.json();
@@ -182,16 +181,10 @@ export default function SurveyForm({ awardee, rubrics }) {
             {step === 1 && (
               <div className="glass-card animate-fade-in">
                 <h2 className="section-title">Step 1: Profil Responden</h2>
-                <div className="form-group" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem', background: '#f8fafc', padding: '1rem', borderRadius: '16px' }}>
-                  <input type="checkbox" id="anonToggle" checked={isAnon} onChange={e => setIsAnon(e.target.checked)} style={{ width: '1.2rem', height: '1.2rem', accentColor: 'var(--primary)' }} />
-                  <label htmlFor="anonToggle" style={{ fontSize: '0.95rem', cursor: 'pointer', userSelect: 'none' }}>Isi sebagai Anonim</label>
+                <div id="field-nama" className="form-group animate-fade-in" style={{ padding: '0.5rem', borderRadius: '12px' }}>
+                  <label className="form-label">Nama Saudara *</label>
+                  <input type="text" className="form-input" value={formData.namaEvaluator} onChange={e => setFormData({ ...formData, namaEvaluator: e.target.value })} />
                 </div>
-                {!isAnon && (
-                  <div id="field-nama" className="form-group animate-fade-in" style={{ padding: '0.5rem', borderRadius: '12px' }}>
-                    <label className="form-label">Nama Saudara *</label>
-                    <input type="text" className="form-input" value={formData.namaEvaluator} onChange={e => setFormData({ ...formData, namaEvaluator: e.target.value })} />
-                  </div>
-                )}
                 <div id="field-kota" className="form-group" style={{ padding: '0.5rem', borderRadius: '12px' }}>
                   <label className="form-label">Kota/Kabupaten Domisili *</label>
                   <input type="text" className="form-input" value={formData.kotaEvaluator} onChange={e => setFormData({ ...formData, kotaEvaluator: e.target.value })} />
