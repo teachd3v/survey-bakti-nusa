@@ -8,6 +8,7 @@ export default function SurveyForm({ awardee, rubrics }) {
     namaEvaluator: '',
     kotaEvaluator: '',
     hubungan: '',
+    hubunganDetail: '',
     lamaKenal: '',
     scores: Array(rubrics.length).fill(null),
     saranDiri: '',
@@ -39,6 +40,10 @@ export default function SurveyForm({ awardee, rubrics }) {
       }
       if (!formData.hubungan) {
         document.getElementById('field-hubungan')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      if (formData.hubungan === 'Lainnya' && !formData.hubunganDetail?.trim()) {
+        document.getElementById('field-hubungan-detail')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
       }
       if (!formData.lamaKenal) {
@@ -90,6 +95,10 @@ export default function SurveyForm({ awardee, rubrics }) {
     setShowConfirm(false);
     setStatus('loading');
     try {
+      const finalHubungan = formData.hubungan === 'Lainnya' && formData.hubunganDetail
+        ? `Lainnya: ${formData.hubunganDetail}`
+        : formData.hubungan;
+
       const res = await fetch('/api/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -98,6 +107,7 @@ export default function SurveyForm({ awardee, rubrics }) {
           namaAwardee: awardee['Nama Awardee'],
           wilayah: awardee.Wilayah,
           ...formData,
+          hubungan: finalHubungan,
           namaEvaluator: formData.namaEvaluator
         })
       });
@@ -191,7 +201,18 @@ export default function SurveyForm({ awardee, rubrics }) {
                 </div>
                 <div id="field-hubungan" className="form-group" style={{ padding: '0.5rem', borderRadius: '12px' }}>
                   <label className="form-label">Dalam hal apa anda berhubungan dengan yang bersangkutan? *</label>
-                  <select className="form-select" value={formData.hubungan} onChange={e => setFormData({ ...formData, hubungan: e.target.value })}>
+                  <select 
+                    className="form-select" 
+                    value={formData.hubungan} 
+                    onChange={e => {
+                      const val = e.target.value;
+                      setFormData(prev => ({
+                        ...prev,
+                        hubungan: val,
+                        hubunganDetail: val === 'Lainnya' ? prev.hubunganDetail : ''
+                      }));
+                    }}
+                  >
                     <option value="">Pilih Hubungan...</option>
                     <option value="Atasan/Leader di organisasi">Atasan/Leader di organisasi</option>
                     <option value="Anggota tim">Anggota tim</option>
@@ -203,6 +224,18 @@ export default function SurveyForm({ awardee, rubrics }) {
                     <option value="Lainnya">Lainnya</option>
                   </select>
                 </div>
+                {formData.hubungan === 'Lainnya' && (
+                  <div id="field-hubungan-detail" className="form-group animate-fade-in" style={{ padding: '0.5rem', borderRadius: '12px', marginTop: '0.5rem' }}>
+                    <label className="form-label">Detail Hubungan Lainnya *</label>
+                    <input 
+                      type="text" 
+                      className="form-input" 
+                      placeholder="Sebutkan hubungan Anda (misal: Kakak Kelas, Alumni)" 
+                      value={formData.hubunganDetail || ''} 
+                      onChange={e => setFormData({ ...formData, hubunganDetail: e.target.value })} 
+                    />
+                  </div>
+                )}
                 <div id="field-lama" className="form-group" style={{ padding: '0.5rem', borderRadius: '12px' }}>
                   <label className="form-label">Berapa lama saudara mengenal yang bersangkutan? *</label>
                   <select className="form-select" value={formData.lamaKenal} onChange={e => setFormData({ ...formData, lamaKenal: e.target.value })}>
