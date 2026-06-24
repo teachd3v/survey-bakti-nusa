@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function SurveyForm({ awardee, rubrics }) {
   const [step, setStep] = useState(1);
@@ -18,6 +18,33 @@ export default function SurveyForm({ awardee, rubrics }) {
   const [errorMsg, setErrorMsg] = useState('');
   const [modalMsg, setModalMsg] = useState(null);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [timeLeft, setTimeLeft] = useState('');
+
+  useEffect(() => {
+    const targetDate = new Date('2026-06-24T23:59:00+07:00').getTime();
+
+    const updateTimer = () => {
+      const now = new Date().getTime();
+      const difference = targetDate - now;
+
+      if (difference <= 0) {
+        setTimeLeft('00:00:00');
+        window.location.reload();
+        return;
+      }
+
+      const hours = Math.floor(difference / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      const formatNum = (num) => String(num).padStart(2, '0');
+      setTimeLeft(`${formatNum(hours)}:${formatNum(minutes)}:${formatNum(seconds)}`);
+    };
+
+    updateTimer();
+    const interval = setInterval(updateTimer, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const categories = [...new Set(rubrics.map(r => r['Kategori']))];
   const totalSteps = 2 + categories.length;
@@ -152,6 +179,48 @@ export default function SurveyForm({ awardee, rubrics }) {
       </div>
 
       <div className="app-screen" style={{ marginTop: 0, padding: '1.5rem 1rem', minHeight: '85vh' }}>
+        {/* Banner Deadline & Countdown */}
+        {status !== 'success' && (
+          <div style={{ 
+            background: 'linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%)', 
+            border: '1px solid #fde68a', 
+            borderRadius: '20px', 
+            padding: '1rem', 
+            marginBottom: '1.5rem',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            textAlign: 'center',
+            boxShadow: '0 4px 10px rgba(251, 191, 36, 0.1)',
+            gap: '0.5rem'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#b45309', fontWeight: 800, fontSize: '0.85rem' }}>
+              <span>⚠️</span> FORM SURVEY SEGERA DITUTUP MALAM INI!
+            </div>
+            <p style={{ color: '#78350f', fontSize: '0.75rem', fontWeight: 600, margin: 0 }}>
+              Form ini akan ditutup otomatis pada <strong>24 Juni pukul 23:59 WIB</strong>.
+            </p>
+            {timeLeft && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.2rem' }}>
+                <span style={{ fontSize: '0.7rem', color: '#b45309', fontWeight: 700, letterSpacing: '0.05em' }}>SISA WAKTU:</span>
+                <span style={{ 
+                  fontFamily: 'monospace', 
+                  background: '#b45309', 
+                  color: '#fff', 
+                  padding: '0.25rem 0.6rem', 
+                  borderRadius: '8px', 
+                  fontSize: '0.9rem', 
+                  fontWeight: 800,
+                  letterSpacing: '1px'
+                }}>
+                  {timeLeft}
+                </span>
+              </div>
+            )}
+          </div>
+        )}
+
         <div className="catalog-card" style={{ marginBottom: '1.5rem', padding: '1rem', background: '#f3f4f6', border: '1px solid #e5e7eb' }}>
           <div className="catalog-card-header" style={{ marginBottom: 0 }}>
             {awardee.Foto ? (
