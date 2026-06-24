@@ -108,7 +108,7 @@ export default function SurveyClosed({ awardee }) {
         </h2>
         
         <p style={{ color: '#4b5563', fontSize: '0.85rem', lineHeight: '1.6', marginBottom: '1.5rem' }}>
-          Terima kasih atas antusiasme Anda. Pengisian survey evaluasi publik untuk awardee ini telah resmi ditutup pada tanggal <strong style={{ color: '#111827' }}>23 Juni pukul 23:59 WIB</strong>.
+          Terima kasih atas antusiasme Anda. Pengisian survey evaluasi publik untuk awardee ini telah resmi ditutup pada tanggal <strong style={{ color: '#111827' }}>24 Juni pukul 23:59 WIB</strong>.
         </p>
 
         <p style={{ color: '#6b7280', fontSize: '0.8rem', marginBottom: '2rem' }}>

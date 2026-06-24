@@ -22,8 +22,8 @@ export default async function SurveyPage({ params }) {
     return notFound();
   }
 
-  // Batas waktu: 23 Juni 2026 23:59 WIB (UTC+7)
-  const DEADLINE = new Date('2026-06-23T23:59:00+07:00');
+  // Batas waktu: 24 Juni 2026 23:59 WIB (UTC+7)
+  const DEADLINE = new Date('2026-06-24T23:59:00+07:00');
   const isClosed = new Date() > DEADLINE;
 
   if (isClosed) {
