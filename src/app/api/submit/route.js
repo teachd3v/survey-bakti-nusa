@@ -3,6 +3,15 @@ import { NextResponse } from 'next/server';
 
 export async function POST(req) {
   try {
+    // Cek batas waktu: 23 Juni 2026 23:59 WIB (UTC+7)
+    const DEADLINE = new Date('2026-06-23T23:59:00+07:00');
+    if (new Date() > DEADLINE) {
+      return NextResponse.json(
+        { success: false, message: 'Maaf, pengisian survey telah ditutup pada 23 Juni 2026 jam 23:59 WIB.' },
+        { status: 400 }
+      );
+    }
+
     const body = await req.json();
     const {
       referal,
