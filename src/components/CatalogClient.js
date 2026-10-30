@@ -81,10 +81,22 @@ export default function CatalogClient({ awardees }) {
                   src={getImageUrl(a.Foto)}
                   alt={a['Nama Awardee']}
                   className="profile-photo"
+                  loading="lazy"
+                  decoding="async"
+                  width="80"
+                  height="80"
                   onError={(e) => { e.target.onerror = null; e.target.src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(a['Nama Awardee']) + '&background=dc2626&color=fff' }}
                 />
               ) : (
-                <img src={`https://ui-avatars.com/api/?name=${encodeURIComponent(a['Nama Awardee'])}&background=dc2626&color=fff`} alt={a['Nama Awardee']} className="profile-photo" />
+                <img 
+                  src={`https://ui-avatars.com/api/?name=${encodeURIComponent(a['Nama Awardee'])}&background=dc2626&color=fff`} 
+                  alt={a['Nama Awardee']} 
+                  className="profile-photo"
+                  loading="lazy"
+                  decoding="async"
+                  width="80"
+                  height="80"
+                />
               )}
               <div className="catalog-card-info">
                 <h3 style={{ fontSize: '1.4rem' }}>{a['Nama Awardee']}</h3>

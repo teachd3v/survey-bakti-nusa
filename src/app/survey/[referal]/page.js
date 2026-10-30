@@ -11,6 +11,14 @@ function getCsvData(filename) {
   return Papa.parse(fileContent, { header: true }).data;
 }
 
+export function generateStaticParams() {
+  const awardees = getCsvData('daftar_awardee.csv');
+  return awardees.filter(a => a.Referal).map(a => ({ referal: a.Referal }));
+}
+
+export const dynamicParams = true;
+export const revalidate = 3600;
+
 export default async function SurveyPage({ params }) {
   const { referal } = await params;
   

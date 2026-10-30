@@ -9,6 +9,8 @@ function getAwardees() {
   return Papa.parse(fileContent, { header: true }).data.filter(a => a['Nama Awardee']);
 }
 
+export const revalidate = 3600;
+
 export default function Home() {
   const awardees = getAwardees();
   return <CatalogClient awardees={awardees} />;

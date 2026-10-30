@@ -11,6 +11,8 @@ function getAwardee(referal) {
   return Papa.parse(fileContent, { header: true }).data.find(a => a.Referal === referal);
 }
 
+export const revalidate = 60;
+
 export default async function DashboardPage({ params }) {
   const { referal } = await params;
   const awardee = getAwardee(referal);
